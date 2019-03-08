@@ -7,18 +7,18 @@ class SQLighter:
         self.connection = sqlite3.connect(database_name)
         self.cursor = self.connection.cursor()
 
-    def count(self, table):
+    def count_users(self):
         with self.connection:
-            result = self.cursor.execute('SELECT * FROM ' + str(table)).fetchall()
+            result = self.cursor.execute('SELECT * FROM users').fetchall()
             return len(result)
-
-    def select(self, table, column, value):
-        with self.connection:
-            return self.cursor.execute('SELECT * FROM ' + str(table) + ' WHERE ' + str(column) + ' = ?', (value, )).fetchall()
 
     def insert_users(self, login, password):
         with self.connection:
-            self.cursor.execute('INSERT INTO users VALUES (?, ?, ?)', (self.count('users') + 1, login, password, ))
+            self.cursor.execute('INSERT INTO users VALUES(?, ?, ?)', (self.count_users() + 1, login, password))
+
+    def select_users(self, login):
+        with self.connection:
+            return self.cursor.execute('SELECT * FROM users WHERE login = ?', (login, )).fetchall()
 
     def close(self):
         self.connection.close()
