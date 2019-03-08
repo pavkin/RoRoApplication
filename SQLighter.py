@@ -18,7 +18,7 @@ class SQLighter:
 
     def insert_users(self, login, password):
         with self.connection:
-            self.cursor.execute('INSERT INTO users VALUES (?, ?, ?)', (self.count('users'), login, password, ))
+            self.cursor.execute('INSERT INTO users VALUES (?, ?, ?)', (self.count('users') + 1, login, password, ))
 
     def close(self):
         self.connection.close()
