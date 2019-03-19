@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-database_name = 'users.db'
+database_name = 'database.db'
